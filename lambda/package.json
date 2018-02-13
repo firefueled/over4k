@@ -1,0 +1,9 @@
+{
+  "name": "over4k-channel",
+  "license": "MIT",
+  "version": "0.0.1",
+  "dependencies": {
+    "axios": "^0.17.1"
+  },
+  "devDependencies": {}
+}
