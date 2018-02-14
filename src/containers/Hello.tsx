@@ -1,43 +1,55 @@
 import * as React from 'react'
 import './Hello.css'
-import Channel from '../components/Channel'
+import Channel, { Props as ChannelProps } from '../components/Channel'
+import ChannelCombo from '../components/ChannelCombo'
+import { lookupChannel } from '../utils'
+
+const debug = require('debug')('containers:Hello')
 
 interface Props {
 }
 
 interface State {
   query: string,
-  shouldLoadChannel: boolean,
-  value: string,
+  channelList?: ChannelProps[]
+  channelProps?: ChannelProps,
 }
 
 export class HelloContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
+
     this.state = {
-      value: '',
       query: '',
-      shouldLoadChannel: false,
     }
 
     // UUfQ98EX3oOv6IHBdUNMJq8Q
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleQueryChange = this.handleQueryChange.bind(this)
+    this.handleChannelLookup = this.handleChannelLookup.bind(this)
+    this.handleChannelSelect = this.handleChannelSelect.bind(this)
   }
 
-  handleChange(event: React.DetailedHTMLProps<any, any>): void {
+  handleQueryChange(event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
-      value: event.target.value,
-      shouldLoadChannel: false
+      query: event.target.value,
     })
   }
 
-  handleSubmit(event: any): void {
+  handleChannelLookup() {
+    if (this.state.query.length < 3) return
+
+    lookupChannel(this.state.query)
+      .then(res => {
+        this.setState({
+          channelList: res,
+        })
+      })
+  }
+
+  handleChannelSelect(channel: ChannelProps): void {
     this.setState({
-      query: this.state.value,
-      shouldLoadChannel: true,
+      channelProps: channel,
     })
-    event.preventDefault()
   }
 
   render() {
@@ -47,15 +59,32 @@ export class HelloContainer extends React.Component<Props, State> {
           Hello
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" name="query" value={this.state.value} onChange={this.handleChange} />
-            <input type="submit" value="Submit" />
+          <form>
+            <input
+              type="text"
+              name="query"
+              value={this.state.query}
+              onChange={this.handleQueryChange}
+            />
+            <input
+              type="button"
+              value="Lookup"
+              onClick={this.handleChannelLookup}
+            />
+
+            {this.state.channelList &&
+            <ChannelCombo
+              channelList={this.state.channelList}
+              handleClick={this.handleChannelSelect}
+            />
+            }
           </form>
         </div>
-        {this.state.shouldLoadChannel &&
-          <div>
-            <Channel channelId={this.state.query} />
-          </div>
+
+        {this.state.channelProps &&
+        <div>
+          <Channel {...this.state.channelProps} />
+        </div>
         }
       </div>
     )

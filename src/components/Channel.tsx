@@ -1,12 +1,19 @@
 import * as React from 'react'
-import { ChannelData, getChannelData, getVideosData, VideosData } from '../utils'
+import { getVideosData } from '../utils'
 
-interface Props {
-  channelId: string
+interface Thumbnails {
+  default: { url: string },
+  medium: { url: string },
+  high: { url: string },
+}
+
+export interface Props {
+  channelId: string,
+  title: string,
+  thumbnails: Thumbnails,
 }
 
 interface State {
-  title: string,
   yearHours: string,
   isRetrieving: boolean,
 }
@@ -15,28 +22,24 @@ class Channel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      title: '...',
       yearHours: '0',
       isRetrieving: false,
     }
-    this.updateChannelData()
+  }
+
+  componentDidMount() {
+    this.updateYearHours()
   }
 
   componentWillReceiveProps(nextProps: Readonly<Props>) {
     if (nextProps.channelId === this.props.channelId) return
-    this.updateChannelData()
+    this.updateYearHours(nextProps.channelId)
   }
 
-  async updateChannelData() {
-    const res: ChannelData = await getChannelData(this.props.channelId)
-    this.setState({ ...res })
-    this.updateYearHours()
-  }
-
-  async updateYearHours() {
+  async updateYearHours(overrideChannelId?: string) {
     this.setState({ isRetrieving: true })
 
-    getVideosData(this.props.channelId)
+    getVideosData(overrideChannelId || this.props.channelId)
       .then(res => {
         return this.setState({...res})
       })
@@ -54,7 +57,7 @@ class Channel extends React.Component<Props, State> {
         {this.state.isRetrieving &&
           <span>Loading...</span>
         }
-        <div>Canal {this.state.title}</div>
+        <div>Canal {this.props.title}</div>
         <div>Horas no ano: {this.state.yearHours}</div>
       </div>
     )

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const axios = require('axios')
 const secrets = require('./secrets')
@@ -8,11 +8,14 @@ const debug = require('debug')('lambda')
 
 const playlistItemsUrl = 'https://www.googleapis.com/youtube/v3/playlistItems?'
 const videosDataUrl = 'https://www.googleapis.com/youtube/v3/videos?'
-const channelDataUrl = 'https://www.googleapis.com/youtube/v3/channels?'
+const channelLookupUrl = 'https://www.googleapis.com/youtube/v3/search?'
 
-const channelDataParamsObj = {
+const channelLookupParamsObj = {
   key: secrets.googleAPIKey,
   part: 'snippet',
+  maxResults: 10,
+  order: 'title',
+  type: 'channel',
 }
 
 const playlistItemsParamsObj = {
@@ -35,6 +38,7 @@ function getFromAPI(paramsObj, url) {
 }
 
 const durationRe = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/
+
 function parseDuration(durationString) {
   let exec = durationRe.exec(durationString)
   if (exec == null) return 0
@@ -55,7 +59,7 @@ function extractVideoIds(data) {
 }
 
 function formatNumber(num) {
-  return new Intl.NumberFormat('pt-BR', {style: 'decimal', maximumFractionDigits: 1})
+  return new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 1 })
     .format(num)
 }
 
@@ -96,20 +100,17 @@ function getVideosData(previousTotal = 0, previousPageToken = '') {
     })
 }
 
-function getChannelData() {
-  channelDataParamsObj.id = 'UUfQ98EX3oOv6IHBdUNMJq8Q'
-
-  return getFromAPI(channelDataParamsObj, channelDataUrl)
-    .then(res => {
-      if (res && res.data.items.length > 0) {
-        return {title: res.data.items[0].snippet.title}
-      }
-      return {title: 'não encontrado'}
-    })
-}
-
 function lookupChannel() {
-
+  return getFromAPI(channelLookupParamsObj, channelLookupUrl)
+    .then(res => {
+      return res.data.items.map(item => {
+        return {
+          channelId: item.snippet.channelId,
+          title: item.snippet.channelTitle,
+          thumbnails: item.snippet.thumbnails,
+        }
+      })
+    })
 }
 
 function doIt(event) {
@@ -122,18 +123,15 @@ function doIt(event) {
     if (event.queryStringParameters.channelId == null || event.queryStringParameters.channelId.length === 0)
       return Promise.reject('missing channelId')
 
-    playlistItemsParamsObj.playlistId = event.queryStringParameters.channelId
+    // transforms channelId into playlistId
+    playlistItemsParamsObj.playlistId = 'UU' + event.queryStringParameters.channelId.substring(2)
     cmd = getVideosData
 
-  } else if (event.path === '/channel-data') {
-    if (event.queryStringParameters.channelId == null || event.queryStringParameters.channelId.length === 0)
-      return Promise.reject('missing channelId')
-
-    channelDataParamsObj.id = event.queryStringParameters.channelId
-    cmd = getChannelData
-
   } else if (event.path === '/channel-lookup') {
-    channelDataParamsObj.id = event.queryStringParameters.channelId
+    if (event.queryStringParameters.q == null || event.queryStringParameters.q.length < 3)
+      return Promise.reject('no query string')
+
+    channelLookupParamsObj.q = event.queryStringParameters.q
     cmd = lookupChannel
 
   } else {
@@ -144,8 +142,8 @@ function doIt(event) {
 }
 
 exports.handler = (event, context, callback) => {
-  const res = { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }}
+  const res = { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' } }
   doIt(event)
-    .then(data => callback(null, Object.assign(res, { body: data })))
+    .then(data => callback(null, Object.assign(res, { body: JSON.stringify(data) })))
     .catch(err => callback(null, Object.assign(res, { statusCode: 400 })))
 }
