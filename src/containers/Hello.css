@@ -1,13 +1,16 @@
-.hello {
-  text-align: center;
-  margin: 20px;
-  font-size: 48px;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 3em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  align-items: center;
 }
 
-.hello button {
-  margin-left: 25px;
-  margin-right: 25px;
-  font-size: 40px;
-  min-width: 50px;
+.main-container button {
+  margin-left: 0.5em;
+}
+
+.form-container {
+  margin-bottom: 0.2em;
 }

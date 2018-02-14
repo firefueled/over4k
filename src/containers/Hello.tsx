@@ -1,8 +1,9 @@
 import * as React from 'react'
-import './Hello.css'
+import { Container, Row, Col, Button, Form, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
 import { lookupChannel } from '../utils'
+import './Hello.css'
 
 const debug = require('debug')('containers:Hello')
 
@@ -54,39 +55,54 @@ export class HelloContainer extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="hello">
-        <div className="greeting">
-          Hello
-        </div>
-        <div>
-          <form>
-            <input
-              type="text"
-              name="query"
-              value={this.state.query}
-              onChange={this.handleQueryChange}
-            />
-            <input
-              type="button"
-              value="Lookup"
-              onClick={this.handleChannelLookup}
-            />
-
-            {this.state.channelList &&
-            <ChannelCombo
-              channelList={this.state.channelList}
-              handleClick={this.handleChannelSelect}
-            />
+      <Container className="main-container">
+        <Row>
+          <Col>
+            <div className="greeting">
+              Hello
+            </div>
+          </Col>
+        </Row>
+        <Row className="form-container">
+          <Col>
+            <div>
+              <Form inline>
+                <Input
+                  type="text"
+                  name="query"
+                  value={this.state.query}
+                  placeholder="Nome do canal"
+                  onChange={this.handleQueryChange}
+                />
+                <Button color="primary" onClick={this.handleChannelLookup}>
+                  Lookup
+                </Button>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          {this.state.channelList &&
+            <div className="channel-combo-container">
+              <ChannelCombo
+                channelList={this.state.channelList}
+                handleClick={this.handleChannelSelect}
+              />
+            </div>
+          }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {this.state.channelProps &&
+            <div>
+              <Channel {...this.state.channelProps} />
+            </div>
             }
-          </form>
-        </div>
-
-        {this.state.channelProps &&
-        <div>
-          <Channel {...this.state.channelProps} />
-        </div>
-        }
-      </div>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }

@@ -1,0 +1,23 @@
+.channel-combo {
+  font-size: 0.4em;
+}
+
+.channel-snippet {
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.channel-snippet.list-group-item {
+  padding: 0.1em 0.5em;
+}
+
+.channel-snippet:hover {
+  background-color: lightsteelblue;
+}
+
+.channel-snippet-img {
+  height: 1.5em;
+  margin-right: 0.5em;
+}
