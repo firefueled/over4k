@@ -58,11 +58,6 @@ function extractVideoIds(data) {
   return ids.join(',')
 }
 
-function formatNumber(num) {
-  return new Intl.NumberFormat('pt-BR', { style: 'decimal', maximumFractionDigits: 1 })
-    .format(num)
-}
-
 const oneYearAgo = new Date()
 oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
 
@@ -95,7 +90,7 @@ function getVideosData(previousTotal = 0, previousPageToken = '') {
 
       // all of the videos are too old or there are no more pages
       if (tooOldCount === videosData.data.items.length || nextPageToken == null)
-        return formatNumber(total)
+        return total
       return getVideosData(total, nextPageToken)
     })
 }
@@ -107,6 +102,7 @@ function lookupChannel() {
         return {
           channelId: item.snippet.channelId,
           title: item.snippet.channelTitle,
+          description: item.snippet.description,
           thumbnails: item.snippet.thumbnails,
         }
       })

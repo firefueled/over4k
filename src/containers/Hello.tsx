@@ -26,7 +26,7 @@ export class HelloContainer extends React.Component<Props, State> {
 
     // UUfQ98EX3oOv6IHBdUNMJq8Q
     this.handleQueryChange = this.handleQueryChange.bind(this)
-    this.handleChannelLookup = this.handleChannelLookup.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChannelSelect = this.handleChannelSelect.bind(this)
   }
 
@@ -36,7 +36,7 @@ export class HelloContainer extends React.Component<Props, State> {
     })
   }
 
-  handleChannelLookup() {
+  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     if (this.state.query.length < 3) return
 
     lookupChannel(this.state.query)
@@ -45,6 +45,7 @@ export class HelloContainer extends React.Component<Props, State> {
           channelList: res,
         })
       })
+    e.preventDefault()
   }
 
   handleChannelSelect(channel: ChannelProps): void {
@@ -58,27 +59,23 @@ export class HelloContainer extends React.Component<Props, State> {
       <Container className="main-container">
         <Row>
           <Col>
-            <div className="greeting">
-              Hello
-            </div>
+            <h2 className="greeting">Hello</h2>
           </Col>
         </Row>
         <Row className="form-container">
           <Col>
-            <div>
-              <Form inline>
-                <Input
-                  type="text"
-                  name="query"
-                  value={this.state.query}
-                  placeholder="Nome do canal"
-                  onChange={this.handleQueryChange}
-                />
-                <Button color="primary" onClick={this.handleChannelLookup}>
-                  Lookup
-                </Button>
-              </Form>
-            </div>
+            <Form inline onSubmit={this.handleSubmit}>
+              <Input
+                type="text"
+                name="query"
+                value={this.state.query}
+                placeholder="Nome do canal"
+                onChange={this.handleQueryChange}
+              />
+              <Button color="primary">
+                Lookup
+              </Button>
+            </Form>
           </Col>
         </Row>
         <Row>
@@ -96,7 +93,7 @@ export class HelloContainer extends React.Component<Props, State> {
         <Row>
           <Col>
             {this.state.channelProps &&
-            <div>
+            <div className="channel-container">
               <Channel {...this.state.channelProps} />
             </div>
             }

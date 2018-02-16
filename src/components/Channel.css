@@ -1,0 +1,14 @@
+.channel-jumbo {
+}
+
+.channel-jumbo>h1.channel-title {
+  font-size: 3.5em;
+}
+
+.channel-description {
+}
+
+.channel-img {
+  width: 8em;
+  margin: 0 1em 1em 0;
+}

@@ -1,7 +1,6 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  font-size: 3em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   align-items: center;
@@ -13,4 +12,10 @@
 
 .form-container {
   margin-bottom: 0.2em;
+}
+
+.channel-container {
+  text-align: start;
+  align-items: start;
+  margin-top: 2em;
 }
