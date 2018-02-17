@@ -3,8 +3,6 @@ import { formatNumber, getProgressOpts, getVideosData } from '../utils'
 import { Jumbotron, Progress } from 'reactstrap'
 import './Channel.css'
 
-export const GOLDEN = 4000
-
 interface Thumbnails {
   default: { url: string },
   medium: { url: string },
@@ -67,7 +65,7 @@ class Channel extends React.Component<Props, State> {
 
   render() {
     return (
-      <Jumbotron className="channel-jumbo">
+      <Jumbotron className="channel-jumbo" tabIndex={0}>
         <img className="channel-img" src={this.props.thumbnails.high.url} />
         <h1 className="d-inline channel-title">{this.props.title}</h1>
         <p className="lead channel-description">{this.props.description}</p>

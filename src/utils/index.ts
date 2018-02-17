@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { GOLDEN, ProgressData, Props as ChannelProps } from '../components/Channel'
+import { ProgressData, Props as ChannelProps } from '../components/Channel'
 import NumberFormatOptions = Intl.NumberFormatOptions
+
+export const GOLDEN = 4000
 
 export interface VideosData {
   yearHours: number

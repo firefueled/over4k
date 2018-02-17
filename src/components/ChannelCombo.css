@@ -12,7 +12,7 @@
   padding: 0.1em 0.5em;
 }
 
-.channel-snippet:hover {
+.channel-snippet:hover, .channel-snippet:active, .channel-snippet:focus {
   background-color: lightsteelblue;
 }
 

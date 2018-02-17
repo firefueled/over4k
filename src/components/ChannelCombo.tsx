@@ -11,7 +11,7 @@ interface HandleFunction {
 }
 
 export interface Props {
-  handleClick: HandleFunction,
+  handleSelect: HandleFunction,
   query: string,
 }
 
@@ -84,8 +84,10 @@ class ChannelCombo extends React.Component<Props, State> {
             return (
               <ListGroupItem
                 key={channel.channelId}
+                tabIndex={0}
                 className="channel-snippet channel-snippet-loaded"
-                onClick={() => this.props.handleClick(channel)}
+                onClick={() => this.props.handleSelect(channel)}
+                onKeyDown={e => e.keyCode !== 13 || this.props.handleSelect(channel)}
               >
                 <img
                   className="channel-snippet-img"
@@ -103,7 +105,10 @@ class ChannelCombo extends React.Component<Props, State> {
 
   render() {
     return (
-      <ListGroup className="channel-combo">
+      <ListGroup
+        className="channel-combo"
+        tabIndex={0}
+      >
         {this.renderCombo()}
       </ListGroup>
     )

@@ -10,5 +10,10 @@
 
 .channel-img {
   width: 8em;
+  height: 8em;
   margin: 0 1em 1em 0;
+}
+
+.channel-jumbo>.progress {
+  border: solid lightgray 1px;
 }

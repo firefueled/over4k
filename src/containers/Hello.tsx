@@ -1,5 +1,6 @@
+import { FormEvent } from 'react'
 import * as React from 'react'
-import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap'
+import { Container, Row, Col, Form, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
 import './Hello.css'
@@ -17,8 +18,13 @@ export class HelloContainer extends React.Component<{}, State> {
       query: '',
     }
 
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleChannelSelect = this.handleChannelSelect.bind(this)
+  }
+
+  handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
   }
 
   handleQueryChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -39,8 +45,10 @@ export class HelloContainer extends React.Component<{}, State> {
         </Row>
         <Row className="form-container">
           <Col sm={{size: 6, offset: 3}} >
-            <Form>
+            <Form onSubmit={this.handleSubmit}>
               <Input
+                autoFocus={true}
+                tabIndex={0}
                 bsSize="lg"
                 type="text"
                 name="query"
@@ -58,7 +66,7 @@ export class HelloContainer extends React.Component<{}, State> {
             <div className="channel-combo-container">
               <ChannelCombo
                 query={this.state.query}
-                handleClick={this.handleChannelSelect}
+                handleSelect={this.handleChannelSelect}
               />
             </div>
           }
