@@ -1,14 +1,8 @@
 import * as React from 'react'
-import { Container, Row, Col, Button, Form, Input } from 'reactstrap'
+import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
-import { lookupChannel } from '../utils'
 import './Hello.css'
-
-const debug = require('debug')('containers:Hello')
-
-interface Props {
-}
 
 interface State {
   query: string,
@@ -16,74 +10,54 @@ interface State {
   channelProps?: ChannelProps,
 }
 
-export class HelloContainer extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class HelloContainer extends React.Component<{}, State> {
+  constructor(props: {}) {
     super(props)
-
     this.state = {
       query: '',
     }
 
-    // UUfQ98EX3oOv6IHBdUNMJq8Q
     this.handleQueryChange = this.handleQueryChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChannelSelect = this.handleChannelSelect.bind(this)
   }
 
   handleQueryChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({
-      query: event.target.value,
-    })
-  }
-
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    if (this.state.query.length < 3) return
-
-    lookupChannel(this.state.query)
-      .then(res => {
-        this.setState({
-          channelList: res,
-        })
-      })
-    e.preventDefault()
+    this.setState({ query: event.target.value })
   }
 
   handleChannelSelect(channel: ChannelProps): void {
-    this.setState({
-      channelProps: channel,
-    })
+    this.setState({ channelProps: channel })
   }
 
   render() {
     return (
       <Container className="main-container">
         <Row>
-          <Col>
-            <h2 className="greeting">Hello</h2>
+          <Col sm={12}>
+            <h1 className="greeting">Será que seu canal tem mais de 4 mil?</h1>
           </Col>
         </Row>
         <Row className="form-container">
-          <Col>
-            <Form inline onSubmit={this.handleSubmit}>
+          <Col sm={{size: 6, offset: 3}} >
+            <Form>
               <Input
+                bsSize="lg"
                 type="text"
                 name="query"
                 value={this.state.query}
                 placeholder="Nome do canal"
+                autoComplete="off"
                 onChange={this.handleQueryChange}
               />
-              <Button color="primary">
-                Lookup
-              </Button>
             </Form>
           </Col>
         </Row>
         <Row>
-          <Col>
-          {this.state.channelList &&
+          <Col sm={{size: 6, offset: 3}} >
+          {this.state.query &&
             <div className="channel-combo-container">
               <ChannelCombo
-                channelList={this.state.channelList}
+                query={this.state.query}
                 handleClick={this.handleChannelSelect}
               />
             </div>

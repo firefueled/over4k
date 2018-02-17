@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { formatNumber, getVideosData } from '../utils'
+import { formatNumber, getProgressOpts, getVideosData } from '../utils'
 import { Jumbotron, Progress } from 'reactstrap'
 import './Channel.css'
+
+export const GOLDEN = 4000
 
 interface Thumbnails {
   default: { url: string },
@@ -17,7 +19,7 @@ export interface Props {
   thumbnails: Thumbnails,
 }
 
-interface ProgressData {
+export interface ProgressData {
   progressColor: string,
   progressValue?: number,
   progressMax?: number,
@@ -42,30 +44,9 @@ class Channel extends React.Component<Props, State> {
   componentDidMount() {
     this.updateYearHours()
   }
-
   componentWillReceiveProps(nextProps: Readonly<Props>) {
     if (nextProps.channelId === this.props.channelId) return
     this.updateYearHours(nextProps.channelId)
-  }
-
-  getProgressData(yearHours: number): ProgressData {
-    const opts = {
-      progressColor: 'success',
-      progressLabel: 'Já era pivete!',
-      progressValue: yearHours,
-      progressMax: 4000,
-    }
-
-    if (yearHours < 40000) {
-      opts.progressColor = 'warning'
-      opts.progressLabel = 'Vai que vai que vai!'
-    }
-    if (yearHours < 30000) {
-      opts.progressColor = 'danger'
-      opts.progressLabel = 'Ihhh... sei não hein?'
-    }
-
-    return opts
   }
 
   async updateYearHours(overrideChannelId?: string) {
@@ -73,7 +54,7 @@ class Channel extends React.Component<Props, State> {
 
     getVideosData(overrideChannelId || this.props.channelId)
       .then(res => {
-        const progressData = this.getProgressData(res.yearHours)
+        const progressData = getProgressOpts(res.yearHours)
         this.setState({...res, ...progressData})
       })
       .catch(error => {

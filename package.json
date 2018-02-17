@@ -1,10 +1,11 @@
 {
-  "name": "ytd",
+  "name": "itsover4k",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://d2nj7pl3m3ju1f.cloudfront.net",
   "dependencies": {
     "axios": "^0.17.1",
+    "bluebird": "^3.5.1",
     "bootstrap": "^4.0.0",
     "debug": "^3.1.0",
     "react": "^16.2.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/bluebird": "^3.5.20",
     "@types/enzyme": "^3.1.6",
     "@types/enzyme-adapter-react-16": "^1.0.1",
     "@types/jest": "^21.1.9",

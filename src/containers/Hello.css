@@ -1,9 +1,10 @@
 .main-container {
-  display: flex;
-  flex-direction: column;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  align-items: center;
+}
+
+h1.greeting {
+  margin: 1em 0;
 }
 
 .main-container button {

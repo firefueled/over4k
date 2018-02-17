@@ -5,6 +5,11 @@ import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+const Promise = require('bluebird')
+Promise.config({
+  cancellation: true,
+})
+
 ReactDOM.render(
   <HelloContainer />,
   document.getElementById('root') as HTMLElement

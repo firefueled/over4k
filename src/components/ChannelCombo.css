@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.channel-snippet.list-group-item {
+.list-group-item.channel-snippet.channel-snippet-loaded {
   padding: 0.1em 0.5em;
 }
 
