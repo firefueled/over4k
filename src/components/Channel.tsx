@@ -35,7 +35,7 @@ class Channel extends React.Component<Props, State> {
     this.state = {
       yearHours: 0,
       isRetrieving: false,
-      progressColor: 'info',
+      progressColor: 'info'
     }
   }
 
@@ -66,8 +66,10 @@ class Channel extends React.Component<Props, State> {
   render() {
     return (
       <Jumbotron className="channel-jumbo" tabIndex={0}>
-        <img className="channel-img" src={this.props.thumbnails.high.url} />
-        <h1 className="d-inline channel-title">{this.props.title}</h1>
+        <a href={`https://www.youtube.com/channel/${this.props.channelId}`}>
+          <img className="channel-img" src={this.props.thumbnails.high.url} />
+          <h1 className="d-inline channel-title">{this.props.title}</h1>
+        </a>
         <p className="lead channel-description">{this.props.description}</p>
 
         <h3>
