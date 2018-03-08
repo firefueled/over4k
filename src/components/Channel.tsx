@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { formatNumber, getProgressOpts, getVideosData } from '../utils'
 import { Jumbotron, Progress } from 'reactstrap'
+import { localize, LocalizedProps } from '../utils/polyglothoc'
 import './Channel.css'
 
 interface Thumbnails {
@@ -29,7 +30,7 @@ interface State extends ProgressData {
   isRetrieving: boolean,
 }
 
-class Channel extends React.Component<Props, State> {
+class Channel extends React.Component<LocalizedProps<Props>, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -52,7 +53,7 @@ class Channel extends React.Component<Props, State> {
 
     getVideosData(overrideChannelId || this.props.channelId)
       .then(res => {
-        const progressData = getProgressOpts(res.yearHours)
+        const progressData = getProgressOpts(res.yearHours, this.props.t, this.props.k)
         this.setState({...res, ...progressData})
       })
       .catch(error => {
@@ -64,6 +65,7 @@ class Channel extends React.Component<Props, State> {
   }
 
   render() {
+    const { t, k } = this.props
     return (
       <Jumbotron className="channel-jumbo" tabIndex={0}>
         <a href={`https://www.youtube.com/channel/${this.props.channelId}`}>
@@ -73,7 +75,7 @@ class Channel extends React.Component<Props, State> {
         <p className="lead channel-description">{this.props.description}</p>
 
         <h3>
-          Horas assitidas no último ano
+          {t(k.txtYearHoursLabel)}
           {this.state.isRetrieving && '...'}
           {!this.state.isRetrieving && ': ' + formatNumber(this.state.yearHours)}
         </h3>
@@ -95,4 +97,4 @@ class Channel extends React.Component<Props, State> {
   }
 }
 
-export default Channel
+export default localize()(Channel)

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ProgressData, Props as ChannelProps } from '../components/Channel'
+import { LocaleKeys, TranslateFunc } from './polyglothoc'
 import NumberFormatOptions = Intl.NumberFormatOptions
 
 export const GOLDEN = 4000
@@ -28,22 +29,22 @@ export function formatNumber(num: number): string {
   return new Intl.NumberFormat('pt-BR', options).format(num)
 }
 
-export function getProgressOpts(yearHours: number): ProgressData {
+export function getProgressOpts(yearHours: number, t: TranslateFunc, k: LocaleKeys): ProgressData {
   const opts = {
     progressColor: 'success',
-    progressLabel: 'Já era pivete!',
+    progressLabel: t(k.txtYearHoursOK),
     progressValue: yearHours,
     progressMax: GOLDEN,
   }
 
   if (yearHours < GOLDEN) {
     opts.progressColor = 'warning'
-    opts.progressLabel = 'Vai que vai que vai!'
+    opts.progressLabel = t(k.txtYearHoursAlmost)
   }
   if (yearHours < GOLDEN - GOLDEN * 0.7) {
     if (yearHours < GOLDEN * 0.25) opts.progressValue = GOLDEN * 0.25
     opts.progressColor = 'danger'
-    opts.progressLabel = 'Ihhh... sei não hein?'
+    opts.progressLabel = t(k.txtYearHoursFail)
   }
 
   return opts

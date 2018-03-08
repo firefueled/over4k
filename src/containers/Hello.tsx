@@ -3,16 +3,20 @@ import * as React from 'react'
 import { Container, Row, Col, Form, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
+import LocaleSelector from '../components/LocaleSelector'
+import { localize, LocalizedProps } from '../utils/polyglothoc'
+
 import './Hello.css'
+import strings from '../utils/strings'
 
 interface State {
   query: string,
-  channelList?: ChannelProps[]
+  channelList?: ChannelProps[],
   channelProps?: ChannelProps,
 }
 
-export class HelloContainer extends React.Component<{}, State> {
-  constructor(props: {}) {
+export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
+  constructor(props: LocalizedProps<{}>) {
     super(props)
     this.state = {
       query: '',
@@ -21,6 +25,11 @@ export class HelloContainer extends React.Component<{}, State> {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleChannelSelect = this.handleChannelSelect.bind(this)
+    this.changeLocale = this.changeLocale.bind(this)
+  }
+
+  changeLocale(locale: string): void {
+    this.props.replace(strings[locale])
   }
 
   handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -36,11 +45,16 @@ export class HelloContainer extends React.Component<{}, State> {
   }
 
   render() {
+    const { t, k } = this.props
     return (
       <Container className="main-container">
         <Row>
           <Col sm={12}>
-            <h1 className="greeting">Será que seu canal tem mais de 4 mil?</h1>
+            <LocaleSelector
+              handleChange={this.changeLocale}
+              localeOptions={['en-US', 'pt-BR']}
+            />
+            <h1 className="greeting">{t(k.txtGreeting)}</h1>
           </Col>
         </Row>
         <Row className="form-container">
@@ -53,7 +67,7 @@ export class HelloContainer extends React.Component<{}, State> {
                 type="text"
                 name="query"
                 value={this.state.query}
-                placeholder="Nome do canal"
+                placeholder={t(k.inputChannelPlaceholder)}
                 autoComplete="off"
                 onChange={this.handleQueryChange}
               />
@@ -86,4 +100,4 @@ export class HelloContainer extends React.Component<{}, State> {
   }
 }
 
-export default HelloContainer
+export default localize()(HelloContainer)

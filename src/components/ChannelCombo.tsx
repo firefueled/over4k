@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { lookupChannel } from '../utils'
+import { localize, LocalizedProps } from '../utils/polyglothoc'
 import { Props as ChannelProps } from './Channel'
 import './ChannelCombo.css'
 import { ListGroup, ListGroupItem } from 'reactstrap'
@@ -20,8 +21,8 @@ interface State {
   isLoading?: boolean,
 }
 
-class ChannelCombo extends React.Component<Props, State> {
-  private lastRequest: BPromise<void>
+class ChannelCombo extends React.Component<LocalizedProps<Props>, State> {
+  private lastRequest: BPromise<void> = BPromise.resolve()
 
   constructor(props: Props) {
     super(props)
@@ -46,7 +47,7 @@ class ChannelCombo extends React.Component<Props, State> {
   }
 
   delayRequest(query: string) {
-    if (this.lastRequest) {
+    if (this.lastRequest.isPending()) {
       this.lastRequest.cancel()
     }
 
@@ -61,6 +62,7 @@ class ChannelCombo extends React.Component<Props, State> {
   }
 
   renderCombo() {
+    const { t, k } = this.props
     if (this.state.isLoading) {
       return (
         <ListGroupItem disabled className="channel-snippet">
@@ -74,7 +76,7 @@ class ChannelCombo extends React.Component<Props, State> {
       } else if (this.state.channelList.length === 0) {
         return (
           <ListGroupItem disabled className="channel-snippet">
-            <span className="channel-snippet-title">Não encontrei canais com este nome...</span>
+            <span className="channel-snippet-title">{t(k.msgNoChannelsFound)}</span>
           </ListGroupItem>
         )
 
@@ -115,4 +117,4 @@ class ChannelCombo extends React.Component<Props, State> {
   }
 }
 
-export default ChannelCombo
+export default localize()(ChannelCombo)
