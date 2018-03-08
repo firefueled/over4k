@@ -48,12 +48,16 @@ export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
     const { t, k } = this.props
     return (
       <Container className="main-container">
-        <Row>
+        <Row className="locale-selector-container">
           <Col sm={12}>
             <LocaleSelector
               handleChange={this.changeLocale}
               localeOptions={['en-US', 'pt-BR']}
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
             <h1 className="greeting">{t(k.txtGreeting)}</h1>
           </Col>
         </Row>

@@ -3,3 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.locale-selector-container {
+  position: absolute;
+  opacity: 0.3;
+  z-index: 10;
+}
+
+.locale-selector-container:hover {
+  opacity: initial;
+}
+
+.locale-selector {
+
+}

@@ -1,7 +1,7 @@
 const strings: object = {
   'pt-BR': {
     txtAppTitle: 'Mais de 4 mil!!!',
-    txtGreeting: 'Será que seu canal tem mais de 4 mil?',
+    txtGreeting: 'Seu canal tem mais de quatro mil?',
     txtYearHoursOK: 'Já era pivete!',
     txtYearHoursAlmost: 'Vai que vai que vai!',
     txtYearHoursFail: 'Ihhh… sei não hein?',

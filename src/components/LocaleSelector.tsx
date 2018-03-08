@@ -15,9 +15,12 @@ class LocaleSelector extends React.PureComponent<LocalizedProps<Props>> {
   render() {
     const { localeOptions, handleChange } = this.props
     return (
-      <ButtonGroup>
+      <ButtonGroup size="sm">
         {localeOptions.map((option: string) =>
           <Button
+            outline
+            color="secondary"
+            className="locale-selector"
             key={option}
             onClick={() => handleChange(option)}
           >
