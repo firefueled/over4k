@@ -13,7 +13,19 @@ Promise.config({
   cancellation: true,
 })
 
-PolyglotHOC.init(strings['en-US'])
+// Selecting default locale from local store or url
+let loc = 'pt-BR'
+export const localStorageLocKey = 'selectedLoc'
+const localStorageLoc = window.localStorage.getItem(localStorageLocKey)
+
+if (localStorageLoc)
+  loc = localStorageLoc
+else if (window.location.origin.includes('itsover4thousand'))
+  loc = 'en-US'
+
+window.localStorage.setItem(localStorageLocKey, loc)
+
+PolyglotHOC.init(strings[loc])
 
 ReactDOM.render(
   <HelloContainer />,
