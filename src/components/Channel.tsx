@@ -68,7 +68,10 @@ class Channel extends React.Component<LocalizedProps<Props>, State> {
     const { t, k } = this.props
     return (
       <Jumbotron className="channel-jumbo" tabIndex={0}>
-        <a href={`https://www.youtube.com/channel/${this.props.channelId}`}>
+        <a
+          className="channel-link"
+          href={`https://www.youtube.com/channel/${this.props.channelId}`}
+        >
           <img className="channel-img" src={this.props.thumbnails.high.url} />
           <h1 className="d-inline channel-title">{this.props.title}</h1>
         </a>

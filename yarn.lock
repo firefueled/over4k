@@ -33,6 +33,10 @@
   version "21.1.10"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.10.tgz#dcacb5217ddf997a090cc822bba219b4b2fd7984"
 
+"@types/mocha@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.0.tgz#b3c8e69f038835db1a7fdc0b3d879fc50506e29e"
+
 "@types/node-polyglot@^0.4.30":
   version "0.4.30"
   resolved "https://registry.yarnpkg.com/@types/node-polyglot/-/node-polyglot-0.4.30.tgz#56544aa623c3c448bdf21d714456a5df7b7dbed6"
@@ -3363,6 +3367,10 @@ jest-jasmine2@^20.0.4:
     once "^1.4.0"
     p-map "^1.1.1"
 
+jest-localstorage-mock@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jest-localstorage-mock/-/jest-localstorage-mock-2.2.0.tgz#ce9a9de01dfdde2ad8aa08adf73acc7e5cc394cf"
+
 jest-matcher-utils@^20.0.3:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-20.0.3.tgz#b3a6b8e37ca577803b0832a98b164f44b7815612"
@@ -3684,6 +3692,14 @@ loader-utils@^1.0.2, loader-utils@^1.1.0:
     big.js "^3.1.3"
     emojis-list "^2.0.0"
     json5 "^0.5.0"
+
+localStorage@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/localStorage/-/localStorage-1.0.3.tgz#e6b89a57bb760a156a38cc87e0f2550f6ed413d8"
+
+localstorage-polyfill@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/localstorage-polyfill/-/localstorage-polyfill-1.0.1.tgz#4b3083d4bc51d23b4158537e66816137413fd31a"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -5099,18 +5115,12 @@ react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
-react-popper@0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.1.tgz#a5e1cf10581598709f8f220eb3631d6c8c8716af"
+react-popper@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.3.tgz#0f73333137c9fb0af6ec4074d2d0585a0a0461e1"
   dependencies:
     popper.js "^1.12.9"
     prop-types "^15.6.0"
-
-react-portal@^4.1.2:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-4.1.3.tgz#0cb58333bc02186ccd2f0997790e4573623dce87"
-  dependencies:
-    prop-types "^15.5.8"
 
 react-reconciler@^0.7.0:
   version "0.7.0"
@@ -5185,17 +5195,16 @@ react@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-reactstrap@^5.0.0-beta:
-  version "5.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-5.0.0-beta.2.tgz#2c783b63ef1224975b3a6a28c69e7ae642e2b775"
+reactstrap@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-5.0.0.tgz#d8948534df4816eddfb162a51643a499388e9228"
   dependencies:
     classnames "^2.2.3"
     lodash.isfunction "^3.0.9"
     lodash.isobject "^3.0.2"
     lodash.tonumber "^4.0.3"
     prop-types "^15.5.8"
-    react-popper "0.8.1"
-    react-portal "^4.1.2"
+    react-popper "^0.8.3"
     react-transition-group "^2.2.1"
 
 read-pkg-up@^1.0.1:

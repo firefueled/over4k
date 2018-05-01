@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
 import LocaleSelector from '../components/LocaleSelector'
-import { localStorageLocKey } from '../index'
+import { lsLocaleKey } from '../index'
 import { localize, LocalizedProps } from '../utils/polyglothoc'
 
 import './Hello.css'
@@ -23,6 +23,7 @@ export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
       query: '',
     }
 
+    const localStorage = require('localStorage')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleChannelSelect = this.handleChannelSelect.bind(this)
@@ -30,7 +31,7 @@ export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
   }
 
   changeLocale(locale: string): void {
-    window.localStorage.setItem(localStorageLocKey, locale)
+    localStorage.setItem(lsLocaleKey, locale)
     this.props.replace(strings[locale])
   }
 

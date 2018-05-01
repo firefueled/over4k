@@ -4,28 +4,28 @@ import HelloContainer from './containers/Hello'
 import registerServiceWorker from './registerServiceWorker'
 import PolyglotHOC from './utils/polyglothoc'
 import strings from './utils/strings'
-
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+const localStorage = require('localStorage')
 const Promise = require('bluebird')
 Promise.config({
   cancellation: true,
 })
 
 // Selecting default locale from local store or url
-let loc = 'pt-BR'
-export const localStorageLocKey = 'selectedLoc'
-const localStorageLoc = window.localStorage.getItem(localStorageLocKey)
+let locale = 'pt-BR'
+export const lsLocaleKey = 'locale'
+const lsLocale = localStorage.getItem(lsLocaleKey)
 
-if (localStorageLoc)
-  loc = localStorageLoc
+if (lsLocale)
+  locale = lsLocale
 else if (window.location.origin.includes('itsover4thousand'))
-  loc = 'en-US'
+  locale = 'en-US'
 
-window.localStorage.setItem(localStorageLocKey, loc)
+localStorage.setItem(lsLocaleKey, locale)
 
-PolyglotHOC.init(strings[loc])
+PolyglotHOC.init(strings[locale])
 
 ReactDOM.render(
   <HelloContainer />,
