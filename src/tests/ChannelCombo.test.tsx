@@ -3,7 +3,7 @@ import * as Promise from 'bluebird'
 import { shallow, mount, ShallowWrapper } from 'enzyme'
 import ChannelCombo from '../components/ChannelCombo'
 
-describe('<ChannelCombo />', function () {
+describe('<ChannelCombo />', () => {
   it('should load a not found message with a dummy channel name', () => {
     const props = {
       query: 'da98sydh8as87dtyga8',
