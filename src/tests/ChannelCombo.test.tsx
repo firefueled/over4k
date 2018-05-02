@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as Promise from 'bluebird'
+import * as sinon from 'sinon'
 import { shallow, mount, ShallowWrapper } from 'enzyme'
 import ChannelCombo from '../components/ChannelCombo'
 
@@ -53,6 +54,22 @@ describe('<ChannelCombo />', () => {
       .then(() => {
         listWrapper.update()
         expect(listWrapper.find('.channel-snippet-loaded').length).toBeGreaterThan(0)
+      })
+  })
+
+  it('should call channel load func when clicking on a channel', () => {
+    const select = sinon.spy()
+    const props = {
+      query: 'kurzgesagt',
+      handleSelect: select,
+    }
+
+    const wrapper = shallow(<ChannelCombo {...props} />).dive()
+    return Promise.delay(2000)
+      .then(() => {
+        wrapper.update()
+        wrapper.find('.channel-snippet-loaded').first().simulate('click')
+        expect(select.called).toBeTruthy()
       })
   })
 })

@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "test": "DEBUG=tests react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -28,16 +28,17 @@
     "@types/enzyme": "^3.1.6",
     "@types/enzyme-adapter-react-16": "^1.0.1",
     "@types/jest": "^21.1.9",
-    "@types/mocha": "^5.2.0",
     "@types/node": "^8.5.2",
     "@types/node-polyglot": "^0.4.30",
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
     "@types/reactstrap": "^5.0.16",
+    "@types/sinon": "^4.3.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest-localstorage-mock": "^2.2.0",
     "localstorage-polyfill": "^1.0.1",
-    "react-addons-test-utils": "^15.6.2"
+    "react-addons-test-utils": "^15.6.2",
+    "sinon": "^5.0.3"
   }
 }
