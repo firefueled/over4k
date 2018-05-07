@@ -4,7 +4,6 @@ import { Container, Row, Col, Form, Input } from 'reactstrap'
 import Channel, { Props as ChannelProps } from '../components/Channel'
 import ChannelCombo from '../components/ChannelCombo'
 import LocaleSelector from '../components/LocaleSelector'
-import { lsLocaleKey } from '../index'
 import { localize, LocalizedProps } from '../utils/polyglothoc'
 
 import './Hello.css'
@@ -31,7 +30,7 @@ export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
   }
 
   changeLocale(locale: string): void {
-    localStorage.setItem(lsLocaleKey, locale)
+    localStorage.setItem('locale', locale)
     this.props.replace(strings[locale])
   }
 
@@ -81,27 +80,27 @@ export class HelloContainer extends React.Component<LocalizedProps<{}>, State> {
             </Form>
           </Col>
         </Row>
-        <Row>
-          <Col sm={{size: 6, offset: 3}} >
-          {this.state.query &&
+        {this.state.query &&
+          <Row>
+            <Col sm={{size: 6, offset: 3}} >
             <div className="channel-combo-container">
               <ChannelCombo
                 query={this.state.query}
                 handleSelect={this.handleChannelSelect}
               />
             </div>
-          }
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {this.state.channelProps &&
-            <div className="channel-container">
-              <Channel {...this.state.channelProps} />
-            </div>
-            }
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        }
+        {this.state.channelProps &&
+          <Row>
+            <Col>
+              <div className="channel-container">
+                <Channel {...this.state.channelProps} />
+              </div>
+            </Col>
+          </Row>
+        }
       </Container>
     )
   }

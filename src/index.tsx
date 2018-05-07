@@ -15,15 +15,14 @@ Promise.config({
 
 // Selecting default locale from local store or url
 let locale = 'pt-BR'
-export const lsLocaleKey = 'locale'
-const lsLocale = localStorage.getItem(lsLocaleKey)
+const lsLocale = localStorage.getItem('locale')
 
 if (lsLocale)
   locale = lsLocale
 else if (window.location.origin.includes('itsover4thousand'))
   locale = 'en-US'
 
-localStorage.setItem(lsLocaleKey, locale)
+localStorage.setItem('locale', locale)
 
 PolyglotHOC.init(strings[locale])
 
