@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://d2nj7pl3m3ju1f.cloudfront.net",
   "dependencies": {
-    "axios": "^0.18",
+    "axios": "^0.21",
     "bluebird": "^3.5.1",
     "bootstrap": "^4.0.0",
     "debug": "^3.1.0",
